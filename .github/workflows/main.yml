@@ -23,7 +23,10 @@ jobs:
         uses: actions/checkout@master
         with: 
           repository: sethlei/edurange-vagrant
-          
+
+      - name: ls1
+        run: ls -Al
+
       - name: debug
         run: cd ./edurange-vagrant
         
