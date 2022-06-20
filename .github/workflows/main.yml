@@ -27,12 +27,6 @@ jobs:
       - name: ls1
         run: ls -Al
 
-      - name: debug
-        run: cd ./edurange-vagrant
-        
-      - name: ls
-        run: ls -Al
-          
 
       - name: Show Vagrant version
         run: vagrant --version
