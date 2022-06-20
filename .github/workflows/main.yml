@@ -23,6 +23,8 @@ jobs:
         uses: actions/checkout@master
         with: 
           repository: sethlei/edurange-vagrant
+          run: cd ./edurange-vagrant
+          
       - uses: actions/checkout@v2
       
       - name: Cache Vagrant boxes
