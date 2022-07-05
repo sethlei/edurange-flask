@@ -1,3 +1,7 @@
 [submodule "webssh2"]
 	path = webssh2
 	url = https://github.com/edurange/webssh2
+
+[submodule "vagrant"]
+	path = vagrant
+	url = https://github.com/sethlei/edurange-vagrant
