@@ -3,5 +3,5 @@
 	url = https://github.com/edurange/webssh2
 
 [submodule "vagrant"]
-	path = vagrant
+	path = edurange-vagrant
 	url = https://github.com/sethlei/edurange-vagrant
