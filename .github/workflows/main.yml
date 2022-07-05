@@ -22,7 +22,7 @@ jobs:
       - name: checkout Vagrant from repo
         uses: actions/checkout@master
         with: 
-          repository: sethlei/edurange-vagrant
+          repository: sethlei/edurange-flask
 
       - name: ls1
         run: ls -Al
