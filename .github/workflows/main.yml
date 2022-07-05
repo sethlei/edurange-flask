@@ -27,6 +27,9 @@ jobs:
       - name: ls1
         run: ls -Al
 
+      - name: Show Git Branch
+        shell: bash
+        run: echo ${GITHUB_REF##*/}
 
       - name: Show Vagrant version
         run: vagrant --version
