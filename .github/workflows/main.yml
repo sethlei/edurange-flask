@@ -28,7 +28,7 @@ jobs:
         run: ls -Al
 
       - name: cd
-        run: cd ./vagrant
+        run: cd ./edurange-vagrant
 
       - name: Show Git Branch
         shell: bash
