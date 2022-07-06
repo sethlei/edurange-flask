@@ -31,6 +31,9 @@ jobs:
       - name: cd
         run: cd ./edurange-vagrant
 
+      - name: ls2
+        run: ls -Al
+
       - name: Show Git Branch
         shell: bash
         run: echo ${GITHUB_REF##*/}
