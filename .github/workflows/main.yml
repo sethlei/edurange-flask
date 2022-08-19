@@ -34,6 +34,11 @@ jobs:
       - name: ls2
         run: ls -Al
 
+      - name: set unsafe
+        shell: bash
+        run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=TRUE" >> $GITHUB_ENV
+
+
       - name: Show Git Branch
         shell: bash
         run: echo ${GITHUB_REF##*/}
