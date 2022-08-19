@@ -62,7 +62,7 @@ jobs:
 
       - name: replace branch name
         shell: bash
-        run: sed -i 's/REPLACE_ME/${BRANCH_NAME}/g' bootstrap.sh
+        run: sed -i 's/REPLACE_ME/${BRANCH_NAME}/g' ./bootstrap.sh
 
 
       - name: Show Vagrant version
