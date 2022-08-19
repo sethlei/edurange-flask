@@ -39,6 +39,7 @@ jobs:
         run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=TRUE" >> $GITHUB_ENV
 
 
+
       - name: Show Git Branch
         shell: bash
         run: echo ${GITHUB_REF##*/}
@@ -57,6 +58,12 @@ jobs:
       # print branch name
       - name: Get branch name
         run: echo 'The branch name is' $BRANCH_NAME
+
+
+      - name: replace branch name
+        shell: bash
+        run: sed -i 's/REPLACE_ME/${BRANCH_NAME}/g' bootstrap.sh
+
 
       - name: Show Vagrant version
         run: vagrant --version
