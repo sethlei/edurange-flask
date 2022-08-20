@@ -19,7 +19,7 @@ jobs:
     runs-on: macos-10.15
 
     steps:
-      - name: checkout Vagrant from repo
+      - name: checkout Vagrant from repository
         uses: actions/checkout@master
         with: 
           repository: sethlei/edurange-flask
