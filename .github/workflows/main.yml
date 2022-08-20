@@ -65,7 +65,7 @@ jobs:
         shell: bash
 
       - name: Run vagrant up
-        run: cd ./edurange-vagrant && ls -Al && vagrant up
+        run: cd ./edurange-vagrant && ls -Al && cat ./bootstrap.sh && vagrant up
         shell: bash
 
       - name: ssh into box after boot
