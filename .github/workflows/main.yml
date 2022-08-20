@@ -33,8 +33,8 @@ jobs:
 
       - name: ls2
         run: ls -Al
-      - name: clear
-        run: echo 'clear'
+      - name: flush test
+        run: echo 'test'
       - name: set unsafe
         shell: bash
         run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=TRUE" >> $GITHUB_ENV
@@ -59,7 +59,7 @@ jobs:
 
       - name: replace branch name
         shell: bash
-        run: cd ./edurange-vagrant && ls -Al && echo $BRANCH_NAME
+        run: cd ./edurange-vagrant && ls -Al && echo $BRANCH_NAME && sed -i '' 's/REPLACE_ME/$BRANCH_NAME/g' ./bootstrap.sh && cat ./bootstrap.sh && echo 'bn:' $BRANCH_NAME && ls -Al
 
       - name: Show Vagrant version
         run: vagrant --version
