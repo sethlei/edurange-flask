@@ -43,13 +43,17 @@ jobs:
       - name: Extract branch name
         if: github.event_name != 'pull_request'
         shell: bash
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
+        #run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
+        env: 
+          BRANCH_NAME: ${{github.ref}}
 
       # extract branch name on pull request
       - name: Print branch name
         if: github.event_name == 'pull_request'
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+        #run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+        env:
+          BRANCH_NAME: "master"
         shell: bash
 
       # print branch name
