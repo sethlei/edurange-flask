@@ -17,7 +17,8 @@ on:
 jobs:
   vagrant-up:
     runs-on: macos-10.15
-
+    env:
+      BRANCH_NAME: "master"
     steps:
       - name: checkout Vagrant from repository
         uses: actions/checkout@master
@@ -40,14 +41,14 @@ jobs:
         run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=TRUE" >> $GITHUB_ENV
 
 # extract branch name -- https://www.techiediaries.com/get-current-branch-name-github-actions-github_ref-bash/
-      - name: Extract branch name
-        if: github.event_name != 'pull_request'
-        shell: bash
-        #run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-        run: echo $BRANCH_NAME
-        id: extract_branch
-        env: 
-          BRANCH_NAME: ${{github.ref}}
+      # - name: Extract branch name
+      #   if: github.event_name != 'pull_request'
+      #   shell: bash
+      #   #run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
+      #   run: echo $BRANCH_NAME
+      #   id: extract_branch
+      #   env: 
+      #     BRANCH_NAME: "master"
 
       # extract branch name on pull request
       - name: Print branch name
@@ -55,7 +56,7 @@ jobs:
         #run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
         run: echo $BRANCH_NAME
         env:
-          BRANCH_NAME: "master"
+          BRANCH_NAME: ${{github.ref}}
         shell: bash
 
       # print branch name
