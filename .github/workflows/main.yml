@@ -49,10 +49,12 @@ jobs:
       - name: Print branch name
         if: github.event_name == 'pull_request'
         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+        shell: bash
 
       # print branch name
       - name: Get branch name
         run: echo 'The branch name is' $BRANCH_NAME
+        shell: bash
 
       - name: replace branch name
         shell: bash
@@ -60,9 +62,12 @@ jobs:
 
       - name: Show Vagrant version
         run: vagrant --version
+        shell: bash
 
       - name: Run vagrant up
         run: cd ./edurange-vagrant && ls -Al && vagrant up
+        shell: bash
 
       - name: ssh into box after boot
         run: cd ./edurange-vagrant && vagrant ssh -c "echo 'hello world!'"
+        shell: bash
