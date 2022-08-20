@@ -38,11 +38,6 @@ jobs:
         shell: bash
         run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=TRUE" >> $GITHUB_ENV
 
-
-
-      - name: Show Git Branch
-        shell: bash
-        run: echo ${GITHUB_REF##*/}
 # extract branch name -- https://www.techiediaries.com/get-current-branch-name-github-actions-github_ref-bash/
       - name: Extract branch name
         if: github.event_name != 'pull_request'
@@ -59,11 +54,9 @@ jobs:
       - name: Get branch name
         run: echo 'The branch name is' $BRANCH_NAME
 
-
       - name: replace branch name
         shell: bash
-        run: cd ./edurange-vagrant && ls -Al && sed -i.bu 's/REPLACE_ME/${BRANCH_NAME}/g' ./bootstrap.sh && cat ./bootstrap.sh
-
+        run: cd ./edurange-vagrant && ls -Al && sed -i.bu 's/REPLACE_ME/$BRANCH_NAME/g' ./bootstrap.sh && cat ./bootstrap.sh
 
       - name: Show Vagrant version
         run: vagrant --version
