@@ -60,8 +60,8 @@ jobs:
       - name: replace branch name
         shell: bash
         run: cd ./edurange-vagrant && ls -Al && echo $BRANCH_NAME && sed -i '' 's/REPLACE_ME/$BRANCH_NAME/g' ./bootstrap.sh && cat ./bootstrap.sh && echo 'bn:' $BRANCH_NAME && ls -Al
-        env: 
-          BRANCH_NAME=${GITHUB_HEAD_REF}
+        # env: 
+        #   BRANCH_NAME=${GITHUB_HEAD_REF}
 
       - name: Show Vagrant version
         run: vagrant --version
