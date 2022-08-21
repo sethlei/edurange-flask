@@ -94,7 +94,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./edurange-vagrant/EDURANGEBBOX.box
+          file: /Users/runner/work/edurange-flask/edurange-flask/edurange-vagrant/EDURANGEBOX.box
           asset_name: EDURANGEBOX.BOX
           tag: ${{ github.ref }}
           overwrite: true
