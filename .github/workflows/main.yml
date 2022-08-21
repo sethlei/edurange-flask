@@ -20,6 +20,16 @@ jobs:
     env:
       BRANCH_NAME: "master"
     steps:
+      # https://github.com/ucb-bar/chipyard/pull/1156/commits/695eab80bd83f8545d445d6c14bd2d5d04dc09af
+      - name: Delete old checkout
+        run: |
+            ls -alh .
+            rm -rf ./* || true
+            rm -rf ./.* || true
+            ls -alh .
+
+
+
       - name: checkout Vagrant from repository
         uses: actions/checkout@master
         with: 
