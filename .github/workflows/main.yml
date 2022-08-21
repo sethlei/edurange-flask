@@ -36,6 +36,9 @@ jobs:
           repository: sethlei/edurange-flask
           submodules: recursive
 
+      - name: clean submodules
+        run: git submodule foreach git clean -xdf
+
       - name: ls1
         run: ls -Al
 
