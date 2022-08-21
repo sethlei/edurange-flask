@@ -87,14 +87,14 @@ jobs:
         shell: bash
 
       - name: Create box
-        run: cd ./edurange-vagrant && vagrant package --output EDURANGEBOX.box 
+        run: cd ./edurange-vagrant && vagrant package --output EDURANGEBOX.box && tar -czvf EDURANGEBOX.tar.gz EDURANGEBOX.box
         shell: bash
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /Users/runner/work/edurange-flask/edurange-flask/edurange-vagrant/EDURANGEBOX.box
+          file: /Users/runner/work/edurange-flask/edurange-flask/edurange-vagrant/EDURANGEBOX.tar.gz
           asset_name: EDURANGEBOX.BOX
           tag: ${{ github.ref }}
           overwrite: true
