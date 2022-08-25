@@ -33,7 +33,7 @@ jobs:
       - name: checkout Vagrant from repository
         uses: actions/checkout@master
         with: 
-          repository: sethlei/edurange-flask
+          repository: sethlei/edurange-flask # Fork me. 
           submodules: recursive
 
       - name: clean submodules

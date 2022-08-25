@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CD
+name: Upload box and release
 
 # Controls when the workflow will run
 on:
@@ -90,12 +90,56 @@ jobs:
         run: cd ./edurange-vagrant && vagrant package --output EDURANGEBOX.box && tar -czvf EDURANGEBOX.tar.gz EDURANGEBOX.box
         shell: bash
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /Users/runner/work/edurange-flask/edurange-flask/edurange-vagrant/EDURANGEBOX.tar.gz
-          asset_name: EDURANGEBOX.BOX
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: "A VirtualBox image containing a complete EDURange install"
+      - name: Get last version of box
+        run: export EDU_VERSION=$(vagrant cloud box show edurange/$VagrantName | grep "Current Version" | awk '{ print $3 }') 
+        shell: bash
+        env:
+          VagrantName="Edutest"
+
+      - name: Increment box version
+        run: export EDU_VERSION=$(awk -F. '/[0-9]+\./{$NF++;print}' OFS=. <<< "$EDU_VERSION")
+        shell: bash
+
+      - name: Create new version
+        run: curl --header "Content-Type: application/json" --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/versions --data '{ "version": { "version": $EDU_VERSION } }'
+        shell: bash
+        env:
+          VAGRANT_NAME:"Edutest"
+          VAGRANT_USER: ${{ secrets.VagrantUser }}
+          VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
+
+      - name: Create new provider
+        run: curl --header "Content-Type: application/json" --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/providers --data '{ "provider": { "name": "virtualbox" } }'
+        shell: bash
+        env:
+          VagrantName="Edutest"
+          VAGRANT_USER: ${{ secrets.VagrantUser }}
+          VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
+
+      - name: Get URL for upload
+        run: export response=$(curl --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/provider/virtualbox/upload)
+        shell: bash
+        env:
+          VagrantName="Edutest"
+          VAGRANT_USER: ${{ secrets.VagrantUser }}
+          VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
+
+      - name: Extract URL
+        run: export upload_path=$(echo "$response" | jq .upload_path)
+        shell: bash
+        env:
+          VagrantName="Edutest"
+          VAGRANT_USER: ${{ secrets.VagrantUser }}
+          VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
+      
+      - name: Send box to the cloud
+        run: curl $upload_path --request PUT --upload-file $EDURANGE_BOX
+        shell: bash
+      
+      - name: Release the version after upload
+        run: curl --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/release --request PUT
+        shell: bash
+        env:
+          VagrantName="Edutest"
+          VAGRANT_USER: ${{ secrets.VagrantUser }}
+          VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
