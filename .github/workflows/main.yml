@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build and Test
 
 # Controls when the workflow will run
 on:
@@ -94,3 +94,12 @@ jobs:
       - name: ssh into box after boot
         run: cd ./edurange-vagrant && vagrant ssh -c "echo 'hello world!'"
         shell: bash
+
+      - name: Install dev dependencies
+        run: cd ./edurange-vagrant && vagrant ssh -c "cd ./edurange-flask && pip install -r ./requirements/dev.txt"
+        shell: bash
+      
+      - name: Run tests
+        run: cd ./edurange-vagrant && vagrant ssh -c "cd ./edurange-flask && flask test && npm test"
+        shell: bash
+      
