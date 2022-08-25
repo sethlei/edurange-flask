@@ -101,7 +101,7 @@ jobs:
         shell: bash
 
       - name: Create new version
-        run: curl --header "Content-Type: application/json" --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/versions --data '{ "version": { "version": $EDU_VERSION } }'
+        run: curl --header "Content-Type&#58; application/json" --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/versions --data '{ "version"&#58; { "version"&#58; $EDU_VERSION } }'
         shell: bash
         env:
           VAGRANT_NAME:"Edutest"
@@ -109,7 +109,7 @@ jobs:
           VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
 
       - name: Create new provider
-        run: curl --header "Content-Type: application/json" --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/providers --data '{ "provider": { "name": "virtualbox" } }'
+        run: curl --header "Content-Type&#58; application/json" --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/providers --data '{ "provider"&#58; { "name"&#58; "virtualbox" } }'
         shell: bash
         env:
           VagrantName="Edutest"
@@ -117,7 +117,7 @@ jobs:
           VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
 
       - name: Get URL for upload
-        run: export response=$(curl --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/provider/virtualbox/upload)
+        run: export response=$(curl --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/provider/virtualbox/upload)
         shell: bash
         env:
           VagrantName="Edutest"
@@ -137,7 +137,7 @@ jobs:
         shell: bash
       
       - name: Release the version after upload
-        run: curl --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/release --request PUT
+        run: curl --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/release --request PUT
         shell: bash
         env:
           VagrantName="Edutest"
