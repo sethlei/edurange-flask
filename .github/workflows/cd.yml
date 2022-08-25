@@ -104,7 +104,7 @@ jobs:
         run: curl --header "Content-Type&#58; application/json" --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/versions --data '{ "version"&#58; { "version"&#58; $EDU_VERSION } }'
         shell: bash
         env:
-          VAGRANT_NAME:"Edutest"
+          VAGRANT_NAME: "Edutest"
           VAGRANT_USER: ${{ secrets.VagrantUser }}
           VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
 
@@ -112,7 +112,7 @@ jobs:
         run: curl --header "Content-Type&#58; application/json" --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/providers --data '{ "provider"&#58; { "name"&#58; "virtualbox" } }'
         shell: bash
         env:
-          VagrantName="Edutest"
+          VagrantName: "Edutest"
           VAGRANT_USER: ${{ secrets.VagrantUser }}
           VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
 
@@ -120,7 +120,7 @@ jobs:
         run: export response=$(curl --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/provider/virtualbox/upload)
         shell: bash
         env:
-          VagrantName="Edutest"
+          VagrantName: "Edutest"
           VAGRANT_USER: ${{ secrets.VagrantUser }}
           VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
 
@@ -128,7 +128,7 @@ jobs:
         run: export upload_path=$(echo "$response" | jq .upload_path)
         shell: bash
         env:
-          VagrantName="Edutest"
+          VagrantName: "Edutest"
           VAGRANT_USER: ${{ secrets.VagrantUser }}
           VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
       
@@ -140,6 +140,6 @@ jobs:
         run: curl --header "Authorization&#58; Bearer $VAGRANT_CLOUD_TOKEN" https://app.vagrantup.com/api/v1/box/$VAGRANT_USER/$VAGRANT_NAME/version/$EDU_VERSION/release --request PUT
         shell: bash
         env:
-          VagrantName="Edutest"
+          VagrantName: "Edutest"
           VAGRANT_USER: ${{ secrets.VagrantUser }}
           VAGRANT_CLOUD_TOKEN: ${{ secrets.CloudToken }} 
